@@ -48,6 +48,7 @@ def main(args):
     # Splitting args
     n0, h, nk, a, b, c = args[0], args[1], args[2], args[3], args[4], args[5]
     results = function(n0, h, nk, a, b, c)
+    # Opening/creating file and writing our results
     with open('output.txt', 'w') as f:
         for x, y in results:
             f.write(f"x: {x:.3f}, y: {y:.3f}\n")
