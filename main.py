@@ -32,7 +32,7 @@ def function(n0: float, h: float, nk: float, a: float, b: float, c: float) -> li
     result = []
     # Walk through the range between n0 and nk with step h
     # and calculating function
-    for i in np.arange(n0, nk + h, h):
+    for i in np.arange(n0, nk, h):
         y = a / (1 + math.exp(-b * i + c))
         result.append((i, y))
     return result
@@ -59,7 +59,6 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Function calculation')
 
     parser.add_argument("--from-file", type=str, help="File containing arguments")
-    # Parse args
     args, unknown = parser.parse_known_args()
 
     if args.from_file:
