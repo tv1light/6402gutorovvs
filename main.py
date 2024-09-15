@@ -7,8 +7,14 @@ def parse_args_from_file(file_path: str) -> list[float]:
     """
     Parsing arguments from file
 
-    :param file_path: path to file
-    :return: list of floats
+    :param file_path: path to file with arguments
+    :return: list of floats, where
+    list[0] - left border of calculations;
+    list[1] - step of calculations;
+    list[2] - right border of calculations;
+    list[3] - 'a' param of function;
+    list[4] - 'b' param of function;
+    list[5] - 'c' param of function
     """
     # Opening file in reading mode
     with open(file_path, 'r') as f:
@@ -21,13 +27,13 @@ def function(n0: float, h: float, nk: float, a: float, b: float, c: float) -> li
     """
     Calculating function of y(x) = a / (1 + e ** (-b * x + c))
 
-    :param n0: Left border
-    :param h: Step
-    :param nk: Right border
+    :param n0: Left border of calculations
+    :param h: Step of calculations
+    :param nk: Right border of calculations
     :param a: 'a' function parameter
     :param b: 'b' function parameter
     :param c: 'c' function parameter
-    :return: list of tuples
+    :return: list of tuples, where ['x' point, calculated 'y' point]
     """
     result = []
     # Walk through the range between n0 and nk with step h
@@ -38,12 +44,18 @@ def function(n0: float, h: float, nk: float, a: float, b: float, c: float) -> li
     return result
 
 
-def main(args):
+def main(args: list[float]) -> None:
     """
     Everything starts and ends here :-)
 
-    :param args: List of arguments
-    :return:
+    :param args: List of arguments where
+    args[0] - left border of calculations;
+    args[1] - step of calculations;
+    args[2] - right border of calculations;
+    args[3] - 'a' param of function;
+    args[4] - 'b' param of function;
+    args[5] - 'c' param of function
+    :return: None
     """
     # Splitting args
     n0, h, nk, a, b, c = args[0], args[1], args[2], args[3], args[4], args[5]
