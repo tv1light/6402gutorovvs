@@ -1,8 +1,6 @@
 import pandas as pd
-
-import matplotlib.pyplot as plt
-
 from data_analysis.weather_analysis.decorators import time_execution
+from data_analysis.weather_analysis.generators import generate_autocorr
 
 
 class WeatherDataProcessor:
@@ -32,7 +30,7 @@ class WeatherDataProcessor:
         :return:
             pd.DataFrame: DataFrame с добавленной колонкой 'temp_avg'.
         """
-        self.df['temp_avg'] = self.df['tavg'].rolling(window=window).mean()
+        self.df[f'temp_avg_{window}'] = self.df['tavg'].rolling(window=window).mean()
         return self.df
 
     @time_execution
@@ -55,10 +53,9 @@ class WeatherDataProcessor:
         :return:
             autocorr: Значение автокорреляции.
         """
-        for lag in range(1, len(self.df)):
-            autocorr = self.df['tavg'].autocorr(lag=lag)
-            self.df['autocorr'] = autocorr
-            return self.df
+
+        self.df['autocorr'] = list(generate_autocorr(self.df, column='tavg'))
+        return self.df
 
     @time_execution
     def find_extrema(self) -> pd.DataFrame:
@@ -74,19 +71,6 @@ class WeatherDataProcessor:
                                          (self.df['tavg'].shift(-1) > self.df['tavg'])]
         return self.df
 
-    @time_execution
-    def plot_data(self):
-        """
-        Строит график средней температуры и скользящего среднего.
-        """
-        plt.figure(figsize=(12,6))
-        plt.plot(self.df['time'], self.df['tavg'], label='Средняя температура')
-        plt.plot(self.df['time'], self.df['temp_avg'], label='Скользящее среднее')
-        plt.xlabel('Дата')
-        plt.ylabel('Температура (°C)')
-        plt.title('Анализ временного ряда температуры')
-        plt.legend()
-        plt.show()
 
     @time_execution
     def save_to_excel(self, filename: str = 'weather_analysis.xlsx'):

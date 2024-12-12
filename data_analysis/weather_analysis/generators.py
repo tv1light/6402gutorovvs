@@ -1,14 +1,3 @@
-from typing import Iterator
-
-
-def lag_generator() -> Iterator[int]:
-    """
-    Генератор, производит последовательные целые числа, начиная с 1.
-
-    Returns:
-        Iterator[int]: Генератор, который возвращает последовательные целые числа
-    """
-    i = 1
-    while True:
-        yield i
-        i += 1
+def generate_autocorr(data, column):
+    for lag in range(1, len(data) + 1):
+        yield data[column].autocorr(lag=lag)
