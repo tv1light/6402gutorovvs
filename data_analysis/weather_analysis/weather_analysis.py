@@ -1,6 +1,5 @@
 import pandas as pd
-from meteostat import Stations, Daily
-from datetime import datetime
+
 import matplotlib.pyplot as plt
 
 from data_analysis.weather_analysis.decorators import time_execution
@@ -17,33 +16,14 @@ class WeatherDataProcessor:
         df (pd.DataFrame): DataFrame с загруженными данными.
     """
     @time_execution
-    def __init__(self, station_id: str, start: datetime, end: datetime):
+    def __init__(self, data):
         """
         Инициализирует WeatherDataProcessor с заданными параметрами.
-
-        :param station_id: Идентификатор станции погоды.
-        :param start: Начальная дата периода анализа.
-        :param end: Конечная дата периода анализа.
         """
-        self.station_id = station_id
-        self.start = start
-        self.end = end
-        self.df = self.fetch_data()
+        self.df = data
 
-    @time_execution
-    def fetch_data(self) -> pd.DataFrame:
-        """
-         Загружает погодные данные с использованием библиотеки Meteostat.
 
-        :return:
-            pd.DataFrame: DataFrame с загруженными данными.
-        """
-        data = Daily(self.station_id, self.start, self.end)
-        data = data.fetch()
-        data = data.reset_index()
-        return data
 
-    @time_execution
     def calculate_moving_average(self, window: int = 7) -> pd.DataFrame:
         """
         Вычисляет скользящее среднее для средней температуры.
@@ -61,13 +41,13 @@ class WeatherDataProcessor:
         Вычисляет разницу (дифференциал) средней температуры.
 
         :return:
-            pd.ё: DataFrame с добавленной колонкой 'temp_diff'.
+            pd.DataFrame: DataFrame с добавленной колонкой 'temp_diff'.
         """
         self.df['temp_diff'] = self.df['tavg'].diff()
         return self.df
 
     @time_execution
-    def find_autocorrelation(self, lag: int = 1) -> float:
+    def find_autocorrelation(self) -> pd.DataFrame:
         """
         Вычисляет автокорреляцию средней температуры с заданным лагом.
 
@@ -75,8 +55,10 @@ class WeatherDataProcessor:
         :return:
             autocorr: Значение автокорреляции.
         """
-        autocorr = self.df['tavg'].autocorr(lag=lag)
-        return autocorr
+        for lag in range(1, len(self.df)):
+            autocorr = self.df['tavg'].autocorr(lag=lag)
+            self.df['autocorr'] = autocorr
+            return self.df
 
     @time_execution
     def find_extrema(self) -> pd.DataFrame:
