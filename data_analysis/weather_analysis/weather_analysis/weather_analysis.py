@@ -1,8 +1,12 @@
+import os
+
 import pandas as pd
+import time
 
 def generate_autocorr(data, column):
     for lag in range(-1, len(data) - 1):
         yield data[column].autocorr(lag=lag)
+
 
 def time_execution(func):
     """
@@ -14,23 +18,24 @@ def time_execution(func):
     Returns:
         callable: Обернутая функция с измерением времени выполнения.
     """
-    import time
 
     def wrapper(*args, **kwargs):
         """
-        Обёртка для функции с замером времени выполнения.
+                Обёртка для функции с замером времени выполнения.
 
-        Args:
-            *args: Аргументы для функции.
-            **kwargs: Именованные аргументы для функции.
+                Args:
+                    *args: Аргументы для функции.
+                    **kwargs: Именованные аргументы для функции.
 
-        Returns:
-            Any: Результат выполнения функции.
-        """
+                Returns:
+                    Any: Результат выполнения функции.
+                """
         start_time = time.time()
         result = func(*args, **kwargs)
         end_time = time.time()
-        print(f'Функция {func.__name__} выполнена за {end_time - start_time:.4f} секунд')
+        # Отключение вывода, если идет выполнение тестов
+        if not os.getenv('TESTING', False):
+            print(f'Функция {func.__name__} выполнена за {end_time - start_time:.4f} секунд')
         return result
 
     return wrapper
@@ -46,6 +51,7 @@ class WeatherDataProcessor:
         end (datetime): Конечная дата периода анализа.
         df (pd.DataFrame): DataFrame с загруженными данными.
     """
+
     @time_execution
     def __init__(self, data, db_manager=None):
         """
@@ -134,7 +140,7 @@ class WeatherDataProcessor:
 
         :param filename: Имя файла для сохранения. По умолчанию 'weather_analysis.xlsx'.
         """
-        self.df.to_excel('results/'+filename, index=False)
+        self.df.to_excel('results/' + filename, index=False)
 
     def close_database(self):
         """
