@@ -1,0 +1,16 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+pandas = "*"
+setuptools = "*"
+meteostat = "*"
+matplotlib = "*"
+pg8000 = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.13"
