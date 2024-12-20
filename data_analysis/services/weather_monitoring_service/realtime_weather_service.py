@@ -1,13 +1,10 @@
 import threading
 import time
-
 import pandas as pd
-
-from data_analysis.data_loader.weather_data_loader import WeatherDataLoader
 import logging
 
-from data_analysis.weather_analysis.weather_analysis import WeatherDataProcessor
-
+from data_analysis.data_loader import WeatherDataLoader
+from data_analysis.weather_analysis import WeatherDataProcessor
 
 class RealtimeWeatherMonitoringService:
     """
@@ -105,7 +102,7 @@ class RealtimeWeatherMonitoringService:
         :param result: DataFrame с результатами анализа.
         """
         try:
-            filename = f"analysis_results_{self.service_id}.txt"
+            filename = f"results/analysis_results_{self.service_id}.txt"
             with open(filename, "a") as file:
                 file.write(f"\n\nFunction: {function_name}\n")
                 file.write(f"Result:\n{result}\n")
@@ -113,3 +110,4 @@ class RealtimeWeatherMonitoringService:
             self.logger.info(f"Service {self.service_id}: Results saved to {filename}.")
         except Exception as e:
             self.logger.exception(f"Service {self.service_id}: Error saving results: {e}")
+
