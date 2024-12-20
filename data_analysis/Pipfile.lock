@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "cfb0c038ce44e322ef2ac6d1ee09c8879abb6a5afeebec310504740c838c5e2a"
+            "sha256": "dc1db276cce62f32e5b7a2c13dd8f9046924a19bde4d681e21b2ab17d9fee0a3"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -16,6 +16,13 @@
         ]
     },
     "default": {
+        "asn1crypto": {
+            "hashes": [
+                "sha256:13ae38502be632115abf8a24cbe5f4da52e3b5231990aff31123c805306ccb9c",
+                "sha256:db4e40728b728508912cbb3d44f19ce188f218e9eba635821bb4b68564f8fd67"
+            ],
+            "version": "==1.5.1"
+        },
         "contourpy": {
             "hashes": [
                 "sha256:041b640d4ec01922083645a94bb3b2e777e6b626788f4095cf21abbe266413c1",
@@ -435,6 +442,15 @@
             "markers": "python_version >= '3.9'",
             "version": "==2.2.3"
         },
+        "pg8000": {
+            "hashes": [
+                "sha256:1ea46cf09d8eca07fe7eaadefd7951e37bee7fabe675df164f1a572ffb300876",
+                "sha256:436c771ede71af4d4c22ba867a30add0bc5c942d7ab27fadbb6934a487ecc8f6"
+            ],
+            "index": "pypi",
+            "markers": "python_version >= '3.8'",
+            "version": "==1.31.2"
+        },
         "pillow": {
             "hashes": [
                 "sha256:00177a63030d612148e659b55ba99527803288cea7c75fb05766ab7981a8c1b7",
@@ -538,6 +554,14 @@
                 "sha256:31c7c1817eb7fae7ca4b8c7ee50c72f93aa2dd863de768e1ef4245d426aa0725"
             ],
             "version": "==2024.2"
+        },
+        "scramp": {
+            "hashes": [
+                "sha256:50e37c464fc67f37994e35bee4151e3d8f9320e9c204fca83a5d313c121bbbe7",
+                "sha256:be3fbe774ca577a7a658117dca014e5d254d158cecae3dd60332dfe33ce6d78e"
+            ],
+            "markers": "python_version >= '3.8'",
+            "version": "==1.4.5"
         },
         "setuptools": {
             "hashes": [

@@ -1,5 +1,5 @@
 from meteostat import Daily
-from datetime import datetime
+import datetime
 import pandas as pd
 import logging
 import logging.config
@@ -57,7 +57,7 @@ class WeatherDataLoader:
         :return: DataFrame с данными за текущий день или за предыдущий день, если данные за сегодня отсутствуют.
         """
         try:
-            today = datetime.now()
+            today = datetime.datetime.now()
             data = Daily(station_id, today, today)
             df = data.fetch()
             df.reset_index()

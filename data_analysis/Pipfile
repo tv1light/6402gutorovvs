@@ -8,6 +8,7 @@ pandas = "*"
 setuptools = "*"
 meteostat = "*"
 matplotlib = "*"
+pg8000 = "*"
 
 [dev-packages]
 
