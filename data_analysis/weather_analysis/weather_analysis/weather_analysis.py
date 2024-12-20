@@ -1,8 +1,8 @@
 import pandas as pd
 
-from data_analysis.weather_analysis.decorators import time_execution
-from data_analysis.weather_analysis.generators import generate_autocorr
-from data_analysis.database_manager.database_manager import WeatherDatabaseManager
+from data_analysis.weather_analysis.weather_analysis.decorators import time_execution
+from data_analysis.weather_analysis.weather_analysis.generators import generate_autocorr
+
 
 class WeatherDataProcessor:
     """
